@@ -1,0 +1,26 @@
+.principal{
+    
+    background-color: #F7F7FA;
+    height: 100vh;
+    width: 100%;
+}
+
+.menu-lateral{
+    margin-top: 3vh;
+    padding: 20px;
+    height: 90vh;
+    width: 300px;
+    position: fixed;
+    background-color: #F1F1FA;
+    border-radius: 0 30px 30px 0;
+    
+    
+    -webkit-box-shadow: 11px 10px 5px -8px rgba(0,0,0,0.41);
+    -moz-box-shadow: 11px 10px 5px -8px rgba(0,0,0,0.41);
+    box-shadow: 11px 10px 5px -8px rgba(0,0,0,0.41);
+}
+
+.content{
+    margin-left: 350px;
+    padding-top: 20px;
+}

@@ -1,0 +1,27 @@
+<div class="login-wrapper" fxLayout="row" fxLayoutAlign="center center">
+
+    <mat-card class="box">
+      <mat-card-header>
+        <mat-card-title>Login</mat-card-title>
+      </mat-card-header>
+  
+      <form class="example-form">
+        <mat-card-content>
+         
+        <br>
+        <ngx-dropzone (change)="onSelect($event)">
+          <ngx-dropzone-label>Drop your Arweave keyfile to login!</ngx-dropzone-label>
+          <ngx-dropzone-preview *ngFor="let f of files" [removable]="true" (removed)="onRemove(f)">
+            <ngx-dropzone-label>{{ f.name }} ({{ f.type }})</ngx-dropzone-label>
+          </ngx-dropzone-preview>
+        </ngx-dropzone>
+        <br>
+
+        </mat-card-content>
+        <div class="login-footer">
+          <button  mat-raised-button color="accent"  (click)="login()">Login</button>
+        </div>
+      </form>
+    </mat-card>
+  
+  </div>

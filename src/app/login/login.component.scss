@@ -1,0 +1,41 @@
+.app-header{justify-content:space-between;position:fixed;top:0;left:0;right:0;z-index:2;box-shadow:0 3px 5px -1px rgba(0, 0, 0, .2), 0 6px 10px 0 rgba(0, 0, 0, .14), 0 1px 18px 0 rgba(0, 0, 0, .12);}
+.login-wrapper{
+    height:100%;
+
+}
+.positronx{text-decoration:none;color:#ffffff;}
+.box{
+    position:relative;
+    top:0;
+    opacity:1;
+    float:left;
+    padding:60px 50px 40px 50px;
+    width:100%;
+    background:#fff;
+    border-radius:10px;
+    transform:scale(1);
+    -webkit-transform:scale(1);
+    -ms-transform:scale(1);
+    z-index:5;max-width:330px;
+    -webkit-box-shadow: 10px 10px 15px 7px rgba(0,0,0,0.27);
+    -moz-box-shadow: 10px 10px 15px 7px rgba(0,0,0,0.27);
+    box-shadow: 10px 10px 15px 7px rgba(0,0,0,0.27);
+
+}
+.box.back{transform:scale(.95);-webkit-transform:scale(.95);-ms-transform:scale(.95);top:-20px;opacity:.8;z-index:-1;}
+
+.login-wrapper .example-form{min-width:100%;max-width:300px;width:100%;}
+.login-wrapper .example-full-width,.login-wrapper .btn-block{width:100%;}
+.login-wrapper mat-card-header{text-align:center;width:100%;display:block;font-weight:700;}
+.login-wrapper mat-card-header mat-card-title{font-size:30px;margin:0;}
+.login-wrapper .mat-card{padding:40px 70px 50px;}
+
+
+
+.login-footer{
+    text-align: center;
+}
+
+.login-footer button{
+    width: 100%;
+}

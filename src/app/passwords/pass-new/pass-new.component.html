@@ -1,1 +1,38 @@
-<p>pass-new works!</p>
+<h2 mat-dialog-title>Add password</h2>
+<mat-dialog-content class="mat-typography">
+
+  <div class="form-container">
+    <mat-form-field appearance="fill"  >
+      <mat-label>Enter a url</mat-label>
+      <input matInput placeholder="http://www.site.com" [formControl]="url" required autocapitalize="off"> 
+      <mat-error *ngIf="url.invalid">{{getErrorMessage()}}</mat-error>
+    </mat-form-field>
+
+    <mat-form-field appearance="fill"  >
+      <mat-label>Enter a user name</mat-label>
+      <input matInput placeholder="" [formControl]="userName" required autocomplete="off" >
+      <mat-error *ngIf="userName.invalid">{{getErrorMessage()}}</mat-error>
+    </mat-form-field>
+
+    <br>
+    <mat-form-field appearance="fill">
+      <mat-label>Enter your password</mat-label>
+      <input matInput [type]="hide ? 'password' : 'text'" [formControl]="userPassword" required>
+      <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
+      <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+      </button>
+      <mat-error *ngIf="userPassword.invalid">{{getErrorMessage()}}</mat-error>
+    </mat-form-field>
+
+    <mat-form-field appearance="fill">
+      <mat-label>Notes</mat-label>
+      <textarea matInput  [formControl]="notes"></textarea>
+    </mat-form-field>
+
+  </div>
+
+</mat-dialog-content>
+<mat-dialog-actions align="end">
+  <button mat-button mat-dialog-close>Cancel</button>
+  <button mat-button [mat-dialog-close]="true" cdkFocusInitial>Save</button>
+</mat-dialog-actions>

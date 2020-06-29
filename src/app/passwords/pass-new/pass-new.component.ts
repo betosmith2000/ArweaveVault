@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { FormControl, Validators } from '@angular/forms';
+import { FormControl, Validators, FormGroup } from '@angular/forms';
+import { ArweaveService } from 'src/app/services/arweave.service';
+import { MatDialogRef } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-pass-new',
@@ -7,15 +9,30 @@ import { FormControl, Validators } from '@angular/forms';
   styleUrls: ['./pass-new.component.scss']
 })
 export class PassNewComponent implements OnInit {
+  isSaving:boolean = false;
+  form:FormGroup;
 
   url = new FormControl('', [Validators.required]);
   userName=new FormControl('', [Validators.required]);
   userPassword=new FormControl('', [Validators.required]);
   notes =new FormControl('');
   hide = true;
-  constructor() { }
+  closeDialog = false;
+  constructor(private service: ArweaveService, 
+    public dialogRef: MatDialogRef<PassNewComponent>) { 
+
+    
+  }
 
   ngOnInit(): void {
+    this.service.currentWallet
+    this.form = new FormGroup({
+      url:this.url,
+      userName:this.userName,
+      userPassword:this.userPassword,
+      notes:this.notes
+    });
+
   }
 
 
@@ -31,6 +48,20 @@ export class PassNewComponent implements OnInit {
       return 'You must enter a user name';
     }
 
+  }
+
+  save(){
+    let p = Object.assign({}, this.form.value);
+
+    if(this.form.valid){
+      this.isSaving=true;
+      this.service.add(p).then((tx)=>{
+        this.isSaving = false;
+        this.dialogRef.close(tx);
+        
+      });
+      
+    }
   }
 
 

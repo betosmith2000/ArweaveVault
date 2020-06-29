@@ -1,6 +1,6 @@
 export class PasswordModel{
-    fileUrl: string;
-    fileUserName: string;
-    filePassword: string;
-    fileNotes: string;
+    url: string;
+    userName: string;
+    userPassword: string;
+    notes: string;
 }

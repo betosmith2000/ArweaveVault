@@ -22,6 +22,10 @@ import { MatTableModule } from '@angular/material/table';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { MatDialogModule } from '@angular/material/dialog';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { MatProgressBarModule } from '@angular/material/progress-bar';
+import { MatCardModule } from '@angular/material/card';
+import {ClipboardModule} from '@angular/cdk/clipboard';
 
 
 @NgModule({
@@ -48,7 +52,11 @@ import { MatDialogModule } from '@angular/material/dialog';
       MatTableModule,
       MatPaginatorModule,
       FlexLayoutModule,
-      MatDialogModule
+      MatDialogModule,
+      MatSnackBarModule,
+      MatProgressBarModule,
+      MatCardModule,
+      ClipboardModule
     ],
     exports:[
       CommonModule,
@@ -72,7 +80,11 @@ import { MatDialogModule } from '@angular/material/dialog';
       MatTableModule,
       MatPaginatorModule,
       FlexLayoutModule,
-      MatDialogModule
+      MatDialogModule,
+      MatSnackBarModule,
+      MatProgressBarModule,
+      MatCardModule,
+      ClipboardModule
     ]
   })
   export class ShareModule { }

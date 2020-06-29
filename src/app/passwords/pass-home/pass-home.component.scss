@@ -4,3 +4,30 @@
     right: 30px;
 
 }
+
+.content { 
+    padding: 16px; 
+    
+  }
+  
+  .content > mat-card { 
+    width: 200px; 
+  }
+
+  .head-url{
+    color: tomato;
+    cursor: pointer;
+  }
+
+  .passwords-container{
+    max-width: 200px;
+  }
+
+  .mat-form-field{
+    width: 100%;
+  }
+  
+  .button-suffix {
+    display: inline!important;
+    
+  }

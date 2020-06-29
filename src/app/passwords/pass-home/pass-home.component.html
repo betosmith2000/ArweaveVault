@@ -1,5 +1,57 @@
-<p>pass-home works!</p>
+<div class="content" fxLayout="row wrap" fxLayoutGap="16px grid">
+  <div fxFlex="25%" fxFlex.xs="100%" fxFlex.sm="33%" *ngFor="let p of passwordArray" class="passwords-container" >
 
+    <mat-card class="mat-elevation-z4">
+      <mat-card-header>
+        <mat-card-title> 
+          <span class="mat-small head-url"  (click)="launchApp(p)" >{{p.url}}</span>
+          
+        </mat-card-title>
+      </mat-card-header>
+      
+      <mat-card-content>
+
+         <mat-form-field appearance="fill" >
+          <mat-label>User name</mat-label>
+          <input matInput [type]="p.userNameHide ? 'password' : 'text'"  [value]="p.userName"  >
+
+          <div matSuffix>
+          <button class="button-suffix" mat-icon-button  (click)="p.userNameHide = !p.userNameHide" [attr.aria-label]="'Hide user name'" [attr.aria-pressed]="p.userNameHide">
+            <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+          </button>
+          <button class="button-suffix" mat-icon-button [attr.aria-label]="'copy user name'" [cdkCopyToClipboard]="p.userName" >
+            <mat-icon>file_copy</mat-icon>
+          </button>
+        </div>
+        </mat-form-field>
+
+
+        <mat-form-field appearance="fill">
+          <mat-label>User password</mat-label>
+          <input matInput [type]="p.userPasswordHide ? 'password' : 'text'"  [value]="p.userPassword"  >
+          <div matSuffix>
+            <button class="button-suffix" mat-icon-button (click)="p.userPasswordHide = !p.userPasswordHide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="p.userPasswordHide">
+            <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+            </button>
+            <button class="button-suffix" mat-icon-button [attr.aria-label]="'copy user password'" [cdkCopyToClipboard]="p.userPassword" >
+              <mat-icon>file_copy</mat-icon>
+            </button>
+          </div>
+        </mat-form-field>
+
+
+        <mat-form-field appearance="fill">
+          <mat-label>Notes</mat-label>
+          <textarea matInput  disabled >{{p.notes}}</textarea>
+        </mat-form-field>
+    
+      </mat-card-content>
+
+      
+    </mat-card>
+    
+  </div>
+</div>
 
 <button mat-fab color="warn" aria-label="Add password" (click)="add()" class="float-button">
     <mat-icon>add</mat-icon>

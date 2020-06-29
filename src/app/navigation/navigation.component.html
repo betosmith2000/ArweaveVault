@@ -5,9 +5,9 @@
       [opened]="(isHandset$ | async) === false">
     <mat-toolbar ><span (click)="goToHome()">Arweave Vault</span> </mat-toolbar>
     <mat-nav-list>
-      <a mat-list-item href="#" routerLink="/passwords/">Passwords</a>
-      <a mat-list-item href="#" routerLink="/notes/">Notes</a>
-      <a mat-list-item href="#"  routerLink="/images/">Images</a>
+      <a mat-list-item href="#" routerLink="/passwords/"><mat-icon aria-hidden="false" aria-label="Example home icon">https</mat-icon>&nbsp;&nbsp;Passwords</a>
+      <a mat-list-item href="#" routerLink="/notes/"><mat-icon aria-hidden="false" aria-label="Example home icon">description</mat-icon>&nbsp;&nbsp;Notes</a>
+      <a mat-list-item href="#"  routerLink="/images/"><mat-icon  aria-hidden="false" aria-label="Example home icon">perm_media</mat-icon>&nbsp;&nbsp;Images</a>
     </mat-nav-list>
   </mat-sidenav>
   <mat-sidenav-content>

@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { AuthService } from '../services/auth.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { first } from 'rxjs/operators';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-login',
@@ -12,7 +13,7 @@ export class LoginComponent implements OnInit {
   returnUrl: string;
   files: File[] = [];
 
-  constructor(private _authService: AuthService, private route: ActivatedRoute,
+  constructor(private _authService: AuthService, private route: ActivatedRoute, private _snackBar: MatSnackBar,
     private router: Router) { 
 
     this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/';
@@ -27,6 +28,12 @@ export class LoginComponent implements OnInit {
 
   login(){
     var f:File = this.files[0];
+    if(!f){
+      this._snackBar.open("You need to load your Arweave keyfile!", "OK", {
+        duration:  5000,
+      });
+      return;
+    }
     var reader = new FileReader();
     reader.onload = e => {
       var target: any = e.target;

@@ -5,6 +5,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { ArweaveService } from 'src/app/services/arweave.service';
 import { AuthService } from 'src/app/services/auth.service';
 import {PasswordModel} from '../../models/password/password.model';
+import { GlobalsService } from 'src/app/services/globals.service';
 
 @Component({
   selector: 'app-pass-home',
@@ -17,16 +18,16 @@ export class PassHomeComponent implements OnInit {
   passwordArray : Array<PasswordModel> = new Array<PasswordModel>();
 
   constructor(public dialog: MatDialog, private _snackBar: MatSnackBar,
-    private _service : ArweaveService, private _authService:AuthService
+    private _service : ArweaveService, private _authService:AuthService,
+    private _globals : GlobalsService
    ) { 
       _authService.currentWallet.subscribe(e=>{
         if(e.kty)  {  
           setTimeout(() => {
-            let txids = this._service.getAll().then( e=>{
+            let txids = this._service.getAll(_globals.PasswordDataTypeValue).then( e=>{
               e.forEach(tx=>{
-                this._service.getPasswordContent(tx).then(txData=>{
+                this._service.getTXContent(tx).then(txData=>{
                   let objPassword = Object.assign({userNameHide:true, userPasswordHide:true},new PasswordModel(), JSON.parse(txData as string) )
-
                   this.passwordArray.push(objPassword);
                 });
               })
@@ -51,7 +52,7 @@ export class PassHomeComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe(result => {
       console.log(`Dialog result: ${result}`);
-      this._snackBar.open("tx: " + result, "OK", {
+      this._snackBar.open("Transaction sent, wait for confirmation, txid: " + result, "OK", {
         duration: this.durationInSeconds * 1000,
       });
     });

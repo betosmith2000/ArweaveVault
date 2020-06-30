@@ -1,1 +1,27 @@
-<p>note-new works!</p>
+<h2 mat-dialog-title>Add note</h2>
+<mat-dialog-content class="mat-typography">
+  <div class="form-container" *ngIf="isSaving">
+    <mat-progress-bar mode="indeterminate"></mat-progress-bar>
+    <br>
+  </div>
+
+  <div class="form-container">
+    <mat-form-field appearance="fill"  >
+      <mat-label>Enter a name</mat-label>
+      <input matInput placeholder="Note name" [formControl]="name" required autocapitalize="off"> 
+      <mat-error *ngIf="name.invalid">{{getErrorMessage()}}</mat-error>
+    </mat-form-field>
+
+    
+    <mat-form-field appearance="fill">
+      <mat-label>Notes</mat-label>
+      <textarea matInput  [formControl]="notes"></textarea>
+    </mat-form-field>
+
+  </div>
+  
+</mat-dialog-content>
+<mat-dialog-actions align="end">
+  <button mat-button mat-dialog-close [disabled]="isSaving">Cancel</button>
+  <button mat-button  cdkFocusInitial (click)="save()" [disabled]="!form.valid || isSaving">Save</button>
+</mat-dialog-actions>

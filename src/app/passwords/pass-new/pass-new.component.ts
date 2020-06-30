@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormControl, Validators, FormGroup } from '@angular/forms';
 import { ArweaveService } from 'src/app/services/arweave.service';
 import { MatDialogRef } from '@angular/material/dialog';
+import { GlobalsService } from 'src/app/services/globals.service';
 
 @Component({
   selector: 'app-pass-new',
@@ -19,7 +20,8 @@ export class PassNewComponent implements OnInit {
   hide = true;
   closeDialog = false;
   constructor(private service: ArweaveService, 
-    public dialogRef: MatDialogRef<PassNewComponent>) { 
+    public dialogRef: MatDialogRef<PassNewComponent>,
+    private _globals: GlobalsService) { 
 
     
   }
@@ -55,7 +57,7 @@ export class PassNewComponent implements OnInit {
 
     if(this.form.valid){
       this.isSaving=true;
-      this.service.add(p).then((tx)=>{
+      this.service.add(p, this._globals.PasswordDataTypeValue ).then((tx)=>{
         this.isSaving = false;
         this.dialogRef.close(tx);
         

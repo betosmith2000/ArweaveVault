@@ -24,11 +24,20 @@ export class NavigationComponent {
   title:string = "Home";
 
   constructor(private breakpointObserver: BreakpointObserver, private arweave: ArweaveService,
-    private _router: Router) {}
+    public _router: Router) {
+     
+    }
 
   goToHome(){
     this._router.navigate(['/home']);
 
   }
 
+  getRoute(route:string):string{
+    let parts = route.split('?');
+
+    let f = parts[0].replace('/','');
+    
+    return f.charAt(0).toUpperCase() + f.slice(1)
+  }
 }

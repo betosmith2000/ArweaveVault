@@ -2,8 +2,8 @@ import { Injectable } from '@angular/core';
 import Arweave from 'arweave/web';
 import { AuthService } from './auth.service';
 import { GlobalsService } from './globals.service';
-import { PasswordsModule } from '../passwords/passwords.module';
-import { promises } from 'dns';
+import { ArQLModel } from '../models/arql/arql.model';
+
 
 const  arweave = Arweave.init({});
 
@@ -28,13 +28,14 @@ export class ArweaveService {
     });
   }
 
-  async add(data:any):Promise<string>{
+  async add(data:any, dataType:string):Promise<string>{
     
     let transaction = await arweave.createTransaction({
       data: JSON.stringify(data)
     }, this.currentWallet);
 
     transaction.addTag(this._globals.AppNameKey,this._globals.AppNameValue);
+    transaction.addTag(this._globals.DataTypeKey,dataType);
     
     await arweave.transactions.sign(transaction, this.currentWallet);
 
@@ -45,30 +46,60 @@ export class ArweaveService {
 
   }
 
-  getAll(){
-    let txids = this.GetTxids();
+  getAll(dataType:string){
+    let txids = this.GetTxids(dataType);
     return txids;
   }
 
-  private async GetTxids():Promise<any[]>{
-    const query = {
-      op: 'and',
-      expr1: {
-        op: 'equals',
-        expr1: 'from',
-        expr2: this.currentAddress
-      },
-      expr2: {
-        op: 'equals',
-        expr1: this._globals.AppNameKey,
-        expr2: this._globals.AppNameValue
-      }
+  private async GetTxids(dataType:string):Promise<any[]>{
+
+     let mainQuery = new ArQLModel();
+     
+    let ownerQuery: ArQLModel={ 
+      op: 'equals',
+      expr1: 'from',
+      expr2: this.currentAddress
     };
-    const res = await arweave.arql(query);
+
+    let appQuery: ArQLModel={
+      op: 'equals',
+      expr1: this._globals.AppNameKey,
+      expr2: this._globals.AppNameValue
+    }
+
+    if(dataType==this._globals.AnyDataTypeValue)
+    {
+      mainQuery={
+        op:'and',
+        expr1:ownerQuery,
+        expr2:appQuery
+      }
+    }
+    else{
+      let dataTypeQuery:ArQLModel={
+        op: 'equals',
+        expr1: this._globals.DataTypeKey,
+        expr2: dataType
+      };
+
+      let appAndDataTypeQuery :ArQLModel={
+        op :'and',
+        expr1: appQuery,
+        expr2: dataTypeQuery
+      }
+
+      mainQuery={
+        op:'and',
+        expr1:ownerQuery,
+        expr2:appAndDataTypeQuery
+      }
+    }
+
+    const res = await arweave.arql(mainQuery);
     return res;
   }
 
-  getPasswordContent(txid:string): Promise<string|Uint8Array>{
+  getTXContent(txid:string): Promise<string|Uint8Array>{
     return arweave.transactions.getData(txid, {decode: true,string: true});
   }
 }

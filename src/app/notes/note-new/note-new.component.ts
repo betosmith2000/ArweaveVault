@@ -15,7 +15,7 @@ export class NoteNewComponent implements OnInit {
 
   name = new FormControl('', [Validators.required]);
   
-  notes =new FormControl('');
+  notes =new FormControl('', [Validators.required]);
   hide = true;
   closeDialog = false;
   constructor(private service: ArweaveService, 
@@ -39,7 +39,9 @@ export class NoteNewComponent implements OnInit {
     if (this.name.hasError('required')) {
       return 'You must enter a name';
     }
-
+    if (this.notes.hasError('required')) {
+      return 'You must enter a note';
+    }
   }
 
   save(){
@@ -47,7 +49,7 @@ export class NoteNewComponent implements OnInit {
 
     if(this.form.valid){
       this.isSaving=true;
-      this.service.add(p, this._globals.NoteDataTypeValue ).then((tx)=>{
+      this.service.add(p, this._globals.NoteDataTypeValue, null ).then((tx)=>{
         this.isSaving = false;
         this.dialogRef.close(tx);
         

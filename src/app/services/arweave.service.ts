@@ -28,7 +28,7 @@ export class ArweaveService {
     });
   }
 
-  async add(data:any, dataType:string):Promise<string>{
+  async add(data:any, dataType:string, fileName:string):Promise<string>{
     
     let transaction = await arweave.createTransaction({
       data: JSON.stringify(data)
@@ -36,6 +36,8 @@ export class ArweaveService {
 
     transaction.addTag(this._globals.AppNameKey,this._globals.AppNameValue);
     transaction.addTag(this._globals.DataTypeKey,dataType);
+    if(fileName)
+      transaction.addTag(this._globals.FileNameKey,fileName);
     
     await arweave.transactions.sign(transaction, this.currentWallet);
 

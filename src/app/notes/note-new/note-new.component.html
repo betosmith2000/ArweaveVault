@@ -16,6 +16,7 @@
     <mat-form-field appearance="fill">
       <mat-label>Notes</mat-label>
       <textarea matInput  [formControl]="notes"></textarea>
+      <mat-error *ngIf="notes.invalid">{{getErrorMessage()}}</mat-error>
     </mat-form-field>
 
   </div>

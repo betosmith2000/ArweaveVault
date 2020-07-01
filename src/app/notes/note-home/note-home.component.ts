@@ -48,10 +48,10 @@ export class NoteHomeComponent implements OnInit {
     const dialogRef = this.dialog.open(NoteNewComponent);
 
     dialogRef.afterClosed().subscribe(result => {
-      console.log(`Dialog result: ${result}`);
-      this._snackBar.open("Transaction sent, wait for confirmation, txid: " + result, "OK", {
-        duration: this.durationInSeconds * 1000,
-      });
+      if(result)
+        this._snackBar.open("Transaction sent, wait for confirmation, txid: " + result, "OK", {
+          duration: this.durationInSeconds * 1000,
+        });
     });
 
   }

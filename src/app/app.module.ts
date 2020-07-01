@@ -10,7 +10,6 @@ import { HomeComponent } from './home/home.component';
 import { LoginComponent } from './login/login.component';
 
 
-import { NgxDropzoneModule } from 'ngx-dropzone';
 import { ShareModule} from './share/share.module';
 
 
@@ -25,9 +24,7 @@ import { ShareModule} from './share/share.module';
     BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,
-    ShareModule,
-    
-    NgxDropzoneModule
+    ShareModule
   ],
   providers: [],
   bootstrap: [AppComponent],

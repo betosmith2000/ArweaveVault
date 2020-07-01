@@ -57,7 +57,7 @@ export class PassNewComponent implements OnInit {
 
     if(this.form.valid){
       this.isSaving=true;
-      this.service.add(p, this._globals.PasswordDataTypeValue ).then((tx)=>{
+      this.service.add(p, this._globals.PasswordDataTypeValue, null ).then((tx)=>{
         this.isSaving = false;
         this.dialogRef.close(tx);
         

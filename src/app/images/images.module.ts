@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { ImagesHomeComponent } from './images-home/images-home.component';
 import { ImagesNewComponent } from './images-new/images-new.component';
 import { Routes, RouterModule } from '@angular/router';
+import { ShareModule } from '../share/share.module';
 
 
 const routes: Routes = [
@@ -14,7 +15,8 @@ const routes: Routes = [
   declarations: [ImagesHomeComponent, ImagesNewComponent],
   imports: [
     CommonModule,
-    RouterModule.forChild(routes)
+    RouterModule.forChild(routes),
+    ShareModule
 
   ]
 })

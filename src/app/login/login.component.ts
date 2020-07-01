@@ -23,7 +23,10 @@ export class LoginComponent implements OnInit {
   }
   
   onSelect(event) {
-    this.files.push(...event.addedFiles);
+    let selectedFiles =event.addedFiles[0];
+    
+    if(this.files.length==0)
+      this.files.push(selectedFiles);
   }
 
   login(){

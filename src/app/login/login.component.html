@@ -9,7 +9,7 @@
         <mat-card-content>
          
         <br>
-        <ngx-dropzone (change)="onSelect($event)">
+        <ngx-dropzone (change)="onSelect($event)" [multiple]="false" [accept]="'application/json'">
           <ngx-dropzone-label>Drop your Arweave keyfile to login!</ngx-dropzone-label>
           <ngx-dropzone-preview *ngFor="let f of files" [removable]="true" (removed)="onRemove(f)">
             <ngx-dropzone-label>{{ f.name }} ({{ f.type }})</ngx-dropzone-label>

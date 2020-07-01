@@ -26,6 +26,7 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { MatCardModule } from '@angular/material/card';
 import {ClipboardModule} from '@angular/cdk/clipboard';
+import { NgxDropzoneModule } from 'ngx-dropzone';
 
 
 @NgModule({
@@ -56,7 +57,8 @@ import {ClipboardModule} from '@angular/cdk/clipboard';
       MatSnackBarModule,
       MatProgressBarModule,
       MatCardModule,
-      ClipboardModule
+      ClipboardModule,
+      NgxDropzoneModule
     ],
     exports:[
       CommonModule,
@@ -84,7 +86,8 @@ import {ClipboardModule} from '@angular/cdk/clipboard';
       MatSnackBarModule,
       MatProgressBarModule,
       MatCardModule,
-      ClipboardModule
+      ClipboardModule,
+      NgxDropzoneModule
     ]
   })
   export class ShareModule { }

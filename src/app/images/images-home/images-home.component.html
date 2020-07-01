@@ -1,1 +1,21 @@
-<p class="mat-display-2">coming soon!</p>
+<div class="content" fxLayout="row wrap" fxLayoutGap="16px grid">
+    <div fxFlex="33%" fxFlex.xs="100%" fxFlex.sm="50%" *ngFor="let p of objectArray" class="note-container" >
+  
+      <mat-card class="mat-elevation-z4">
+
+        <img mat-card-image [src]="p.content" [alt]="p.fileName">
+        <mat-card-content style="text-align:center">
+        
+          <span class="head mat-small"  >{{p.fileName}}</span>
+      
+        </mat-card-content>
+  
+        
+      </mat-card>
+      
+    </div>
+  </div>
+  
+  <button mat-fab color="warn" aria-label="Add note" (click)="add()" class="float-button">
+    <mat-icon>add</mat-icon>
+</button>

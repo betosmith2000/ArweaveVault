@@ -1,0 +1,33 @@
+.float-button{
+    position: fixed;
+    bottom: 30px;
+    right: 30px;
+}
+
+.content { 
+    padding: 16px; 
+  }
+  
+  .content > mat-card { 
+    width: 200px; 
+  }
+
+
+  .note-container{
+    max-width: 400px;
+  }
+
+  .mat-form-field{
+    width: 100%;
+  }
+  
+  .button-suffix {
+    display: inline!important;
+    
+  }
+
+  
+  .head{
+    color: tomato;
+    
+  }

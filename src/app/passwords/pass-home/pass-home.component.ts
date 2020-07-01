@@ -51,10 +51,10 @@ export class PassHomeComponent implements OnInit {
     const dialogRef = this.dialog.open(PassNewComponent);
 
     dialogRef.afterClosed().subscribe(result => {
-      console.log(`Dialog result: ${result}`);
-      this._snackBar.open("Transaction sent, wait for confirmation, txid: " + result, "OK", {
-        duration: this.durationInSeconds * 1000,
-      });
+      if(result)
+        this._snackBar.open("Transaction sent, wait for confirmation, txid: " + result, "OK", {
+          duration: this.durationInSeconds * 1000,
+        });
     });
 
   }

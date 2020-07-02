@@ -3,4 +3,6 @@ export class PasswordModel{
     userName: string;
     userPassword: string;
     notes: string;
+    isPending:boolean;
+    txid:string;
 }

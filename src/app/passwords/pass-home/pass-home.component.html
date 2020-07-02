@@ -1,5 +1,8 @@
+<div class="form-container" *ngIf="isLoading">
+  <mat-progress-bar mode="indeterminate" color="accent"></mat-progress-bar>
+</div>
 <div class="content" fxLayout="row wrap" fxLayoutGap="16px grid">
-  <div fxFlex="25%" fxFlex.xs="100%" fxFlex.sm="33%" *ngFor="let p of passwordArray" class="passwords-container" >
+  <div fxFlex="25%" fxFlex.xs="100%" fxFlex.sm="33%" *ngFor="let p of objectArray" class="passwords-container" >
 
     <mat-card class="mat-elevation-z4">
       <mat-card-header>
@@ -10,13 +13,17 @@
       </mat-card-header>
       
       <mat-card-content>
+        <div class="form-container" *ngIf="p.isPending">
+          <mat-progress-bar mode="indeterminate" color="accent"></mat-progress-bar>
+          <span class="mat-small head-url">Please wait, pending transaction...</span>
 
+        </div>
          <mat-form-field appearance="fill" >
           <mat-label>User name</mat-label>
           <input matInput [type]="p.userNameHide ? 'password' : 'text'"  [value]="p.userName"  >
 
           <div matSuffix>
-          <button class="button-suffix" mat-icon-button  (click)="p.userNameHide = !p.userNameHide" [attr.aria-label]="'Hide user name'" [attr.aria-pressed]="p.userNameHide">
+          <button class="button-suffix" mat-icon-button  (click)="p.userNameHide = !p.userNameHide" [attr.aria-label]="'Hide user name'" [attr.aria-pressed]="p.userNameHide" [disabled]>
             <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
           </button>
           <button class="button-suffix" mat-icon-button [attr.aria-label]="'copy user name'" [cdkCopyToClipboard]="p.userName" >

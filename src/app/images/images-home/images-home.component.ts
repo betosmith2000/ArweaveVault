@@ -14,6 +14,7 @@ import { ImagesNewComponent } from '../images-new/images-new.component';
 })
 export class ImagesHomeComponent implements OnInit {
 
+  isLoading : boolean = false;
 
   durationInSeconds = 10;
   objectArray : Array<ImageModel> = new Array<ImageModel>();
@@ -25,6 +26,7 @@ export class ImagesHomeComponent implements OnInit {
       _authService.currentWallet.subscribe(e=>{
         if(e.kty)  {  
           setTimeout(() => {
+            this.isLoading=true;
             let txids = this._service.getAll(_globals.ImageDataTypeValue).then( e=>{
               e.forEach(tx=>{
                 this._service.getTXContent(tx).then(txData=>{
@@ -32,6 +34,10 @@ export class ImagesHomeComponent implements OnInit {
                   this.objectArray.push(objPassword);
                 });
               })
+            }).catch(r=>{
+              this.isLoading = false;
+            }).finally(()=> {
+              this.isLoading = false;
             });    
           }, 500);
         }

@@ -1,3 +1,6 @@
+<div class="form-container" *ngIf="isLoading">
+  <mat-progress-bar mode="indeterminate" color="accent"></mat-progress-bar>
+</div>
 <div class="content" fxLayout="row wrap" fxLayoutGap="16px grid">
     <div fxFlex="33%" fxFlex.xs="100%" fxFlex.sm="50%" *ngFor="let p of objectArray" class="note-container" >
   

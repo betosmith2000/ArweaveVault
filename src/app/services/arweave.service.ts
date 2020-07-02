@@ -43,9 +43,15 @@ export class ArweaveService {
 
     const response = await arweave.transactions.post(transaction);
   
-    return transaction.id;
+    let obj = Object.assign({isPending:true, txid: transaction.id}, data );
+  
+    return obj;
     
 
+  }
+
+  getTXStatus(txid:string){
+    return arweave.transactions.getStatus(txid);
   }
 
   getAll(dataType:string){

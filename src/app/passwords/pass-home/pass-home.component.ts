@@ -40,6 +40,9 @@ export class PassHomeComponent implements OnInit {
                       obj.url = data.url;
                     })
                 }
+                else{
+                  tx.isPending=false;
+                }
               }
             });
           })
@@ -84,9 +87,7 @@ export class PassHomeComponent implements OnInit {
   }
 
   add(){
-
     const dialogRef = this.dialog.open(PassNewComponent);
-
     dialogRef.afterClosed().subscribe(result => {
       if(result){
         let obj = Object.assign({isPending:true, userNameHide:true, userPasswordHide:true},new PasswordModel(), result );
@@ -96,7 +97,6 @@ export class PassHomeComponent implements OnInit {
         });
       }
     });
-
   }
 
 

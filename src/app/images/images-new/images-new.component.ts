@@ -67,7 +67,7 @@ export class ImagesNewComponent implements OnInit {
       reader.onload = e => {
         var target: any = e.target;
         p.content = target.result;
-debugger
+
         this.service.add(p, this._globals.ImageDataTypeValue, p.content.name ).then((tx)=>{
           this.isSaving = false;
           this.dialogRef.close(tx);

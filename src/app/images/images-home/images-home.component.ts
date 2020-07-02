@@ -6,6 +6,7 @@ import { ArweaveService } from 'src/app/services/arweave.service';
 import { AuthService } from 'src/app/services/auth.service';
 import { GlobalsService } from 'src/app/services/globals.service';
 import { ImagesNewComponent } from '../images-new/images-new.component';
+import { timer } from 'rxjs';
 
 @Component({
   selector: 'app-images-home',
@@ -13,9 +14,8 @@ import { ImagesNewComponent } from '../images-new/images-new.component';
   styleUrls: ['./images-home.component.scss']
 })
 export class ImagesHomeComponent implements OnInit {
-
+  time = timer(5000, 120000);
   isLoading : boolean = false;
-
   durationInSeconds = 10;
   objectArray : Array<ImageModel> = new Array<ImageModel>();
 
@@ -23,6 +23,33 @@ export class ImagesHomeComponent implements OnInit {
     private _service : ArweaveService, private _authService:AuthService,
     private _globals : GlobalsService
    ) { 
+
+    this.time.subscribe(val => {
+      let pendingTx = this.objectArray.filter(e=>e.isPending);
+      if(pendingTx.length> 0){
+        pendingTx.forEach(tx=>{
+          _service.getTXStatus(tx.txid).then(s=>{
+            if(s.confirmed){
+              if(!tx.content){
+                  this._service.getTXContent(tx.txid).then(txData=>{
+                    let obj = this.objectArray.filter(e=>e.txid == tx.txid)[0];
+                    tx.isPending=false;
+                    let data = txData?JSON.parse(txData as string):"";
+                    obj.content = data.content;
+                    obj.fileName = data.fileName;
+                    obj.mimeType = data.mimeType;
+                    
+                  })
+              }
+              else{
+                tx.isPending=false;
+              }
+            }
+          });
+        })
+      }
+    });
+
       _authService.currentWallet.subscribe(e=>{
         if(e.kty)  {  
           setTimeout(() => {
@@ -30,8 +57,14 @@ export class ImagesHomeComponent implements OnInit {
             let txids = this._service.getAll(_globals.ImageDataTypeValue).then( e=>{
               e.forEach(tx=>{
                 this._service.getTXContent(tx).then(txData=>{
-                  let objPassword = Object.assign({hide:true},new ImageModel(), JSON.parse(txData as string) )
-                  this.objectArray.push(objPassword);
+                  let isPending = !txData  ? true:false;
+                  let obj = Object.assign({hide:true,  isPending : isPending, txid: tx},new ImageModel(), txData?JSON.parse(txData as string):"")
+                  if(!obj.content){
+                    obj.content="";
+                    obj.fileName="";
+                    obj.mimeType="";
+                  }
+                  this.objectArray.push(obj);
                 });
               })
             }).catch(r=>{
@@ -50,17 +83,16 @@ export class ImagesHomeComponent implements OnInit {
   }
 
   add(){
-
     const dialogRef = this.dialog.open(ImagesNewComponent);
-
     dialogRef.afterClosed().subscribe(result => {
-      
-      if(result)
-        this._snackBar.open("Transaction sent, wait for confirmation, txid: " + result, "OK", {
+      if(result){
+        let obj = Object.assign({isPending:true},new ImageModel(), result );
+        this.objectArray.push(obj)
+        this._snackBar.open("Transaction sent, wait for confirmation, txid: " + result.txid, "OK", {
           duration: this.durationInSeconds * 1000,
         });
+      }
     });
-
   }
 
 }

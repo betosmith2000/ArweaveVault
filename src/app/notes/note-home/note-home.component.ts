@@ -39,6 +39,9 @@ export class NoteHomeComponent implements OnInit {
                     obj.notes = data.notes;
                   })
               }
+              else{
+                tx.isPending=false;
+              }
             }
           });
         })

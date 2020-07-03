@@ -33,7 +33,7 @@ export class PassHomeComponent implements OnInit {
                     this._service.getTXContent(tx.txid).then(txData=>{
                       let obj = this.objectArray.filter(e=>e.txid == tx.txid)[0];
                       tx.isPending=false;
-                      let data = txData?JSON.parse(txData as string):"";
+                      let data = txData?JSON.parse(_service.bufferToString(txData)):"";
                       obj.userName = data.userName;
                       obj.userPassword = data.userPassword;
                       obj.notes = data.notes;
@@ -57,7 +57,7 @@ export class PassHomeComponent implements OnInit {
               e.forEach(tx=>{
                 this._service.getTXContent(tx).then(txData=>{
                   let isPending = !txData  ? true:false;
-                  let objPassword = Object.assign({userNameHide:true, userPasswordHide:true, isPending : isPending, txid: tx},new PasswordModel(), txData?JSON.parse(txData as string):""  )
+                  let objPassword = Object.assign({userNameHide:true, userPasswordHide:true, isPending : isPending, txid: tx},new PasswordModel(), txData?JSON.parse(_service.bufferToString(txData)):""  )
                   if(!objPassword.url){
                     objPassword.userName="";
                     objPassword.userPassword="";

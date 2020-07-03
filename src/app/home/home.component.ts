@@ -15,7 +15,6 @@ export class HomeComponent implements OnInit {
         this.isLoggedIn=true;
         // setTimeout(() => {
         //   let txids = this._service.getAll().then( e=>{
-        //     debugger
         //   });  
         // }, 2000);
       }

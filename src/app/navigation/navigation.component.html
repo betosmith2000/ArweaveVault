@@ -3,7 +3,7 @@
       [attr.role]="(isHandset$ | async) ? 'dialog' : 'navigation'"
       [mode]="(isHandset$ | async) ? 'over' : 'side'"
       [opened]="(isHandset$ | async) === false">
-    <mat-toolbar ><span (click)="goToHome()">Arweave Vault</span>&nbsp; <span class="mat-small version" >v0.2.1</span> </mat-toolbar>
+    <mat-toolbar ><span class="navegable" (click)="goToHome()">Arweave Vault</span>&nbsp; <span class="mat-small version" >v0.2.1</span> </mat-toolbar>
     <mat-nav-list>
       <a mat-list-item href="#" routerLink="/passwords/"><mat-icon aria-hidden="false" aria-label="Example home icon">https</mat-icon>&nbsp;&nbsp;Passwords</a>
       <a mat-list-item href="#" routerLink="/notes/"><mat-icon aria-hidden="false" aria-label="Example home icon">description</mat-icon>&nbsp;&nbsp;Notes</a>
@@ -11,13 +11,13 @@
     </mat-nav-list>
   </mat-sidenav>
   <mat-sidenav-content>
-    <mat-toolbar color="primary">
+    <mat-toolbar color="primary" *ngIf="isToolBarVisible()">
       <button
         type="button"
         aria-label="Toggle sidenav"
         mat-icon-button
         (click)="drawer.toggle()"
-        *ngIf="isHandset$ | async">
+        *ngIf="isHandset$ | async ">
         <mat-icon aria-label="Side nav toggle icon">menu</mat-icon>
       </button>
       <span >{{ getRoute(_router.url)}}</span>

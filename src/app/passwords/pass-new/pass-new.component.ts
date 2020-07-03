@@ -3,6 +3,7 @@ import { FormControl, Validators, FormGroup } from '@angular/forms';
 import { ArweaveService } from 'src/app/services/arweave.service';
 import { MatDialogRef } from '@angular/material/dialog';
 import { GlobalsService } from 'src/app/services/globals.service';
+import * as passgenerator from 'generate-password-browser';
 
 @Component({
   selector: 'app-pass-new',
@@ -64,6 +65,19 @@ export class PassNewComponent implements OnInit {
       });
       
     }
+  }
+
+
+  generatePassword(){
+    var password = passgenerator.generate({
+      numbers:true,
+      length:16,
+      symbols:true,
+      uppercase:true,
+      strict:true
+    });
+
+    this.userPassword.setValue(password);
   }
 
 

@@ -9,9 +9,9 @@ export class GlobalsService{
 
     public readonly DataTypeKey = "Data-type";
     public readonly FileNameKey = "File-name";
-    public readonly PasswordDataTypeValue = "Password-DataTypeTest13";
-    public readonly NoteDataTypeValue = "Note-DataTypeTest2";
-    public readonly ImageDataTypeValue = "Image-DataTypeTest5";
+    public readonly PasswordDataTypeValue = "Password-DataTypeTest16";
+    public readonly NoteDataTypeValue = "Note-DataTypeTest4";
+    public readonly ImageDataTypeValue = "Image-DataTypeTest7";
     public readonly AnyDataTypeValue = "";
 
     

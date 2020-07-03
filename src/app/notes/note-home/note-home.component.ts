@@ -30,11 +30,10 @@ export class NoteHomeComponent implements OnInit {
           _service.getTXStatus(tx.txid).then(s=>{
             if(s.confirmed){
               if(!tx.name){
-                debugger
                   this._service.getTXContent(tx.txid).then(txData=>{
                     let obj = this.objectArray.filter(e=>e.txid == tx.txid)[0];
                     tx.isPending=false;
-                    let data = txData?JSON.parse(txData as string):"";
+                    let data = txData?JSON.parse(_service.bufferToString(txData)):"";
                     obj.name = data.name;
                     obj.notes = data.notes;
                   })
@@ -56,7 +55,7 @@ export class NoteHomeComponent implements OnInit {
               e.forEach(tx=>{
                 this._service.getTXContent(tx).then(txData=>{
                   let isPending = !txData  ? true:false;
-                  let objNote = Object.assign({hide:true, isPending : isPending, txid: tx},new NoteModel(),  txData?JSON.parse(txData as string):"" )
+                  let objNote = Object.assign({hide:true, isPending : isPending, txid: tx},new NoteModel(),  txData?JSON.parse(_service.bufferToString( txData)):"" )
                   if(!objNote.name){
                     objNote.notes="";
                     objNote.name="";

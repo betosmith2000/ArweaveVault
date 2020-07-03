@@ -22,12 +22,22 @@ export class NavigationComponent {
     );
 
   title:string = "Home";
+  toolBarVisibility: boolean= true;
 
   constructor(private breakpointObserver: BreakpointObserver, private arweave: ArweaveService,
     public _router: Router) {
-     
-    }
+    
+        
+  }
+    
+  isToolBarVisible():boolean{
+    let visible = this.getRoute(this._router.url).toLocaleLowerCase()
+    if(visible == "home" || visible=="login" || visible == "")
+     return false;
+     else
+      return true;
 
+  }
   goToHome(){
     this._router.navigate(['/home']);
 

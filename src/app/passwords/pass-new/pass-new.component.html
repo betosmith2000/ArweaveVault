@@ -22,9 +22,14 @@
     <mat-form-field appearance="fill">
       <mat-label>Enter your password</mat-label>
       <input matInput [type]="hide ? 'password' : 'text'" [formControl]="userPassword" required>
-      <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
-      <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
-      </button>
+      <div matSuffix>
+        <button class="button-suffix" mat-icon-button  (click)="generatePassword()" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
+          <mat-icon>autorenew</mat-icon>
+        </button>
+        <button class="button-suffix" mat-icon-button  (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
+        <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+        </button>
+      </div>  
       <mat-error *ngIf="userPassword.invalid">{{getErrorMessage()}}</mat-error>
     </mat-form-field>
 

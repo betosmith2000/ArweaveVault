@@ -34,7 +34,7 @@ export class ImagesHomeComponent implements OnInit {
                   this._service.getTXContent(tx.txid).then(txData=>{
                     let obj = this.objectArray.filter(e=>e.txid == tx.txid)[0];
                     tx.isPending=false;
-                    let data = txData?JSON.parse(txData as string):"";
+                    let data = txData?JSON.parse(_service.bufferToString(txData)):"";
                     obj.content = data.content;
                     obj.fileName = data.fileName;
                     obj.mimeType = data.mimeType;
@@ -58,7 +58,7 @@ export class ImagesHomeComponent implements OnInit {
               e.forEach(tx=>{
                 this._service.getTXContent(tx).then(txData=>{
                   let isPending = !txData  ? true:false;
-                  let obj = Object.assign({hide:true,  isPending : isPending, txid: tx},new ImageModel(), txData?JSON.parse(txData as string):"")
+                  let obj = Object.assign({hide:true,  isPending : isPending, txid: tx},new ImageModel(), txData?JSON.parse(_service.bufferToString(txData)):"")
                   if(!obj.content){
                     obj.content="";
                     obj.fileName="";

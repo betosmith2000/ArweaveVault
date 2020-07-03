@@ -3,7 +3,7 @@ import Arweave from 'arweave/web';
 import { AuthService } from './auth.service';
 import { GlobalsService } from './globals.service';
 import { ArQLModel } from '../models/arql/arql.model';
-
+import { CryptoService } from '../services/crypto.service';
 
 const  arweave = Arweave.init({});
 
@@ -15,7 +15,7 @@ export class ArweaveService {
   currentWallet:any;
   currentAddress:string;
   
-  constructor(private _authService: AuthService, private _globals: GlobalsService) { 
+  constructor(private _authService: AuthService, private _globals: GlobalsService, private _cryptoService: CryptoService) { 
     let wallet = _authService.currentWallet.subscribe(wallet=>{
     
       
@@ -29,9 +29,9 @@ export class ArweaveService {
   }
 
   async add(data:any, dataType:string, fileName:string):Promise<string>{
-    
+    let encryptedData = await this._cryptoService.encrypt(JSON.stringify(data), this.currentAddress);
     let transaction = await arweave.createTransaction({
-      data: JSON.stringify(data)
+      data: encryptedData
     }, this.currentWallet);
 
     transaction.addTag(this._globals.AppNameKey,this._globals.AppNameValue);
@@ -107,7 +107,14 @@ export class ArweaveService {
     return res;
   }
 
-  getTXContent(txid:string): Promise<string|Uint8Array>{
-    return arweave.transactions.getData(txid, {decode: true,string: true});
+  async getTXContent(txid:string): Promise<Uint8Array>{
+    
+    let encryptedData = await arweave.transactions.getData(txid, {decode: true});
+    
+    return  this._cryptoService.decrypt(encryptedData, this.currentWallet);
+  }
+
+  public bufferToString(buffer:any){
+    return  arweave.utils.bufferToString(buffer);
   }
 }

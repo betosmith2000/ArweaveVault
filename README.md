@@ -2,6 +2,8 @@
 
 It is an application in the permaweb that helps us to save our passwords, notes and images that we need to remain secure since the content is encrypted so that only the owner can access them!
 
+Demo app: https://arweave.net/IJrd95KgyCKwumGUPAFHrpslbzGpOpPymWX3SXktGT4
+
 ## Development server
 
 Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.

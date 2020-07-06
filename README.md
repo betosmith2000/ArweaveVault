@@ -1,6 +1,6 @@
-# ArweaveVault
+# Arweave Vault
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 10.0.0.
+It is an application in the permaweb that helps us to save our passwords, notes and images that we need to remain secure since the content is encrypted so that only the owner can access them!
 
 ## Development server
 

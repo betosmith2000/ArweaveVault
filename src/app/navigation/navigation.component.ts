@@ -31,10 +31,10 @@ export class NavigationComponent {
   }
     
   isToolBarVisible():boolean{
-    let visible = this.getRoute(this._router.url).toLocaleLowerCase()
-    if(visible == "home" || visible=="login" || visible == "")
-     return false;
-     else
+    // let visible = this.getRoute(this._router.url).toLocaleLowerCase()
+    // if(visible == "home" || visible=="login" || visible == "")
+    //  return false;
+    //  else
       return true;
 
   }

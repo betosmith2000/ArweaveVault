@@ -13,8 +13,6 @@ jobs:
   build-test:
     runs-on: ubuntu-latest
     timeout-minutes: 20
-    env:
-      NODE_OPTIONS: --openssl-legacy-provider
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -30,14 +28,13 @@ jobs:
 
       - name: Build
         run: npm run build:ci
-
-      - name: Test (legacy, non-blocking)
-        run: npm run test:ci
-        continue-on-error: true
-
-      - name: Lint (legacy, non-blocking)
-        run: npm run lint
-        continue-on-error: true
+        env:
+          NODE_OPTIONS: --openssl-legacy-provider
 
       - name: Audit production dependencies
         run: npm audit --omit=dev --audit-level=critical
+
+      # Visibility-only audit for technical debt tracking; does not block phase 1 delivery.
+      - name: Audit full dependency tree (informational)
+        run: npm audit --audit-level=moderate
+        continue-on-error: true

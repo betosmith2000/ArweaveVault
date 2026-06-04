@@ -24,6 +24,14 @@ Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.
 
 Run `ng e2e` to execute the end-to-end tests via [Protractor](http://www.protractortest.org/).
 
+## Maintenance notes (phase 1)
+
+- Dependencies were updated incrementally inside the Angular 10-compatible range to reduce risk.
+- `arweave` is intentionally pinned to `1.7.1` in this phase because newer releases introduced compatibility issues with the current Angular 10 toolchain.
+- Basic CI and Dependabot automation were added under `.github/`.
+- CI currently builds with `NODE_OPTIONS=--openssl-legacy-provider` because Angular 10 tooling has OpenSSL compatibility issues on modern Node versions.
+- `TSLint` and `Protractor` are kept for compatibility in this phase and should be migrated in a future phase (`TSLint` -> ESLint and `Protractor` -> Cypress/Playwright/WebdriverIO).
+
 ## Further help
 
 To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI README](https://github.com/angular/angular-cli/blob/master/README.md).
